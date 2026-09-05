@@ -76,7 +76,7 @@ select
     "type",
     regexp_replace(json_row ->> 'number', '\s+', '', 'g') as "number",
     (str_split((json_row ->> 'href'), '/')[5])::integer as player_id,
-    (json_row ->> 'name') as "player_name",
+    {{ clean_name("json_row ->> 'name'") }} as "player_name",
     (json_row ->> 'team_captain')::integer as "team_captain",
     (json_row ->> 'position') as "position",
 

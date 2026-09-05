@@ -15,7 +15,7 @@ with
 select
     club_id,
     json_extract_string(json_row, '$.code') as club_code,
-    json_extract_string(json_row, '$.name') as "name",
+    {{ clean_name("json_extract_string(json_row, '$.name')") }} as "name",
     (
         str_split(json_extract_string(json_row, '$.parent.href'), '/')[5]
     ) as domestic_competition_id,
@@ -60,12 +60,12 @@ select
     end as foreigners_percentage,
     json_extract_string(json_row, '$.national_team_players')::integer
     as national_team_players,
-    json_extract_string(json_row, '$.stadium_name') as stadium_name,
+    {{ clean_name("json_extract_string(json_row, '$.stadium_name')") }} as stadium_name,
     replace(
         str_split(json_extract_string(json_row, '$.stadium_seats'), ' ')[1], '.', ''
     )::integer as stadium_seats,
     json_extract_string(json_row, '$.net_transfer_record') as net_transfer_record,
-    json_extract_string(json_row, '$.coach_name') as coach_name,
+    {{ clean_name("json_extract_string(json_row, '$.coach_name')") }} as coach_name,
     season as last_season,
     "filename",
     (

@@ -53,3 +53,25 @@
     end
 
 {% endmacro %}
+
+
+{#
+    Clean a name-like string coming from the raw data: strip surrounding
+    whitespace and stray leading/trailing commas, which Transfermarkt leaves in
+    some values (e.g. the player_name 'James Simpson,' or the city_of_birth
+    ', California'). Commas inside the value are kept, since they are legitimate
+    in names like 'Korea, South'.
+
+    Arguments:
+      - expression: the string expression to clean.
+#}
+{% macro clean_name(expression) %}
+
+    nullif(
+        regexp_replace(
+            regexp_replace({{ expression }}, '^[\s,]+', ''), '[\s,]+$', ''
+        ),
+        ''
+    )
+
+{% endmacro %}

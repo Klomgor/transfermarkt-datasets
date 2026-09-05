@@ -15,8 +15,8 @@ with
 select
     national_team_id,
     coalesce(
-        nullif(json_extract_string(json_row, '$.name'), ''),
-        json_extract_string(json_row, '$.parent.country_name')
+        {{ clean_name("json_extract_string(json_row, '$.name')") }},
+        {{ clean_name("json_extract_string(json_row, '$.parent.country_name')") }}
     ) as name,
     json_extract_string(json_row, '$.code') as team_code,
     json_extract_string(json_row, '$.parent.country_id') as country_id,
@@ -60,7 +60,7 @@ select
             )::float
     end as foreigners_percentage,
     {{ parse_market_value("json_extract_string(json_row, '$.total_market_value')") }} as total_market_value,
-    json_extract_string(json_row, '$.coach_name') as coach_name,
+    {{ clean_name("json_extract_string(json_row, '$.coach_name')") }} as coach_name,
     case
         when len(json_extract_string(json_row, '$.fifa_ranking')) > 0
         then json_extract_string(json_row, '$.fifa_ranking')::integer

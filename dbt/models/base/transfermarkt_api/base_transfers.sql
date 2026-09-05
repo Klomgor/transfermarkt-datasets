@@ -32,8 +32,8 @@ with
             transfer ->> 'season' as transfer_season,
             json_extract_string(transfer, '$.from.href') as from_club_url,
             json_extract_string(transfer, '$.to.href') as to_club_url,
-            json_extract_string(transfer, '$.from.clubName') as from_club_name,
-            json_extract_string(transfer, '$.to.clubName') as to_club_name,
+            {{ clean_name("json_extract_string(transfer, '$.from.clubName')") }} as from_club_name,
+            {{ clean_name("json_extract_string(transfer, '$.to.clubName')") }} as to_club_name,
             transfer ->> 'fee' as transfer_fee,
             transfer ->> 'marketValue' as market_value,
             filename as source_filename

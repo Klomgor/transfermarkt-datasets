@@ -35,9 +35,9 @@ select
         '-1'
     ) as current_club_id,
     json_extract_string(json_row, '$.code') as player_code,
-    trim(json_extract_string(json_row, '$.place_of_birth.country')) as country_of_birth,
-    trim(json_extract_string(json_row, '$.place_of_birth.city')) as city_of_birth,
-    trim(json_extract_string(json_row, '$.citizenship')) as country_of_citizenship,
+    {{ clean_name("json_extract_string(json_row, '$.place_of_birth.country')") }} as country_of_birth,
+    {{ clean_name("json_extract_string(json_row, '$.place_of_birth.city')") }} as city_of_birth,
+    {{ clean_name("json_extract_string(json_row, '$.citizenship')") }} as country_of_citizenship,
 
     case
         when json_extract_string(json_row, '$.date_of_birth') not in ('N/A', 'null', '')
@@ -95,7 +95,7 @@ select
     else null
     end as height_in_cm,
     {{ parse_contract_expiration_date("json_row ->> 'contract_expires'")}} as contract_expiration_date,
-    json_row -> 'player_agent' ->> 'name' as agent_name,
+    {{ clean_name("json_row -> 'player_agent' ->> 'name'") }} as agent_name,
     json_extract_string(json_row, '$.image_url') as image_url,
     case
         when len(json_extract_string(json_row, '$.international_caps')) > 0

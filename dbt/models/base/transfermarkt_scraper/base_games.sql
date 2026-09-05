@@ -86,11 +86,11 @@ select
         then -1
         else regexp_extract(json_extract_string(json_row, '$.away_club_position'), '\s([0-9]+)')::integer
     end as away_club_position,
-    json_extract_string(json_row, '$.home_manager.name') as home_club_manager_name,
-    json_extract_string(json_row, '$.away_manager.name') as away_club_manager_name,
-    json_extract_string(json_row, '$.stadium') as stadium,
+    {{ clean_name("json_extract_string(json_row, '$.home_manager.name')") }} as home_club_manager_name,
+    {{ clean_name("json_extract_string(json_row, '$.away_manager.name')") }} as away_club_manager_name,
+    {{ clean_name("json_extract_string(json_row, '$.stadium')") }} as stadium,
     replace(str_split(json_row ->> 'attendance', 'Attendance: ')[2], '.', '')::integer as attendance,
-    json_extract_string(json_row, '$.referee') as referee,
+    {{ clean_name("json_extract_string(json_row, '$.referee')") }} as referee,
     (
         'https://www.transfermarkt.co.uk' || json_extract_string(json_row, '$.href')
     ) as url,
