@@ -5,12 +5,17 @@
 
 # transfermarkt-datasets
 
-Clean, structured and **automatically updated** football (soccer) dataset built from [Transfermarkt](https://www.transfermarkt.co.uk/) data -- 79,000+ games, 37,000+ players, 1,800,000+ appearances and more, refreshed weekly.
+Clean, structured football (soccer) dataset built from [Transfermarkt](https://www.transfermarkt.co.uk/) data -- 88,000+ games, 50,000+ players, 1,890,000+ appearances and more, across 12 joinable tables.
 
-> [!IMPORTANT]
-> ⚽ **World Cup 2026 data is live — updated as the tournament plays out.**
+> [!WARNING]
+> **Updates are paused. The dataset is current to 6 July 2026.**
 >
-> Group stage results and player appearances for all 48 nations are already in the dataset. Query them right now:
+> The automated collection pipeline stopped completing successfully in mid-July 2026, and there is no estimated date for updates to resume. `games` contains nothing after **2026-07-06**, `appearances` nothing after **2026-06-28**, `player_valuations` nothing after **2026-06-12**, and 2026/27 squads are not covered.
+>
+> Everything published before then is unaffected and still available to download. Please read the [status announcement](https://github.com/dcaribou/transfermarkt-datasets/discussions/383) before opening an issue about missing recent data.
+
+> [!NOTE]
+> ⚽ **World Cup 2026 group stage data is in the dataset** — results and player appearances for all 48 nations, up to the July cut-off above.
 >
 > ```sql
 > -- Who scored in Brazil's last group game?
@@ -33,18 +38,18 @@ The dataset is composed of **12 tables** covering competitions, games, clubs, pl
 
 | Table | Description | Scale |
 | --- | --- | --- |
-| `competitions` | Leagues, tournaments and national team competitions | 40+ |
-| `clubs` | Club details, squad size, market value | 400+ |
-| `players` | Player profiles, positions, market values, international caps | 37,000+ |
-| `games` | Match results, lineups, attendance | 79,000+ |
-| `appearances` | One row per player per game played | 1,800,000+ |
-| `player_valuations` | Historical market value records | 500,000+ |
-| `club_games` | Per-club view of each game | 150,000+ |
-| `game_events` | Goals, cards, substitutions | 1,100,000+ |
-| `game_lineups` | Starting and bench lineups | 2,800,000+ |
-| `transfers` | Player transfers between clubs | 87,000+ |
-| `countries` | Country details and confederation membership | 100+ |
-| `national_teams` | National team profiles, squad size, FIFA ranking | 100+ |
+| `competitions` | Leagues, tournaments and national team competitions | 65 |
+| `clubs` | Club details, squad size, market value | 790+ |
+| `players` | Player profiles, positions, market values, international caps | 50,000+ |
+| `games` | Match results, lineups, attendance | 88,000+ |
+| `appearances` | One row per player per game played | 1,890,000+ |
+| `player_valuations` | Historical market value records | 650,000+ |
+| `club_games` | Per-club view of each game | 177,000+ |
+| `game_events` | Goals, cards, substitutions | 1,270,000+ |
+| `game_lineups` | Starting and bench lineups | 3,170,000+ |
+| `transfers` | Player transfers between clubs | 175,000+ |
+| `countries` | Country details and confederation membership | 124 |
+| `national_teams` | National team profiles, squad size, FIFA ranking | 124 |
 
 <a href="https://pub-e682421888d945d684bcae8890b0ec20.r2.dev/data/transfermarkt-datasets.zip"><img src="https://img.shields.io/badge/-Download%20Dataset-brightgreen?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+PHBhdGggZD0iTTEyIDNhMSAxIDAgMCAxIDEgMXY5LjU5bDIuMy0yLjNhMSAxIDAgMSAxIDEuNDEgMS40MmwtNCA0YTEgMSAwIDAgMS0xLjQyIDBsLTQtNGExIDEgMCAxIDEgMS40Mi0xLjQybDIuMyAyLjNWNGExIDEgMCAwIDEgMS0xem0tNyAxNGEyIDIgMCAwIDAtMiAydjFhMiAyIDAgMCAwIDIgMmgxNGEyIDIgMCAwIDAgMi0ydi0xYTIgMiAwIDAgMC0yLTJINXoiLz48L3N2Zz4=" alt="Download Dataset" height="28"></a>
 <a href="https://codespaces.new/dcaribou/transfermarkt-datasets/tree/master?quickstart=1"><img src="https://github.com/codespaces/badge.svg" alt="Open in GitHub Codespaces" height="28"></a>
@@ -129,6 +134,8 @@ The fastest way to explore the dataset is to download the DuckDB database file -
 ### 1. Download the database
 
 <a href="https://pub-e682421888d945d684bcae8890b0ec20.r2.dev/data/transfermarkt-datasets.duckdb"><img src="https://img.shields.io/badge/-Download%20DuckDB%20Database-ff9900?style=for-the-badge&logo=duckdb&logoColor=white" alt="Download DuckDB Database" height="28"></a>
+
+> This is a snapshot with data up to **6 July 2026**; it is not currently being refreshed. See the [status announcement](https://github.com/dcaribou/transfermarkt-datasets/discussions/383).
 
 Or via the command line:
 
